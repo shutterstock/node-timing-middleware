@@ -1,6 +1,6 @@
 {
   "name": "timing-middleware",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Time how long a route takes to respond",
   "main": "index.js",
   "scripts": {
