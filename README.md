@@ -1,5 +1,7 @@
 # node-timing-middleware
 
+Expose request times to do with as you desire: statsd, log, etc.
+
 [![Build Status](https://secure.travis-ci.org/shutterstock/node-timing-middleware.png)](http://travis-ci.org/shutterstock/node-timing-middleware)
 
 ## Example usage
@@ -11,8 +13,8 @@ var express = require('express');
 
 var app = express();
 
-app.use(timing(function(path, duration) {
-  console.log("PATH " + path + " TOOK " + duration + "ms");
+app.use(timing(function(verb, path, duration) {
+  console.log(verb, path, "took", duration, "ms");
 }));
 
 app.get('/fairly_slow_route', function(req, res, next) {

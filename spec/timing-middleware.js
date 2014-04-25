@@ -22,7 +22,8 @@ describe("timing-middleware", function() {
       };
       app = express();
 
-      app.use(subject(function(path, time) {
+      app.use(subject(function(verb, path, time) {
+        result.verb = verb;
         result.path = path;
         result.time = time;
       }));
@@ -46,6 +47,7 @@ describe("timing-middleware", function() {
           .end(function(err, res) {
             expect(err).to.not.exist;
             expect(res.text).to.equal('doesntmatter');
+            expect(result.verb).to.equal('GET');
             expect(result.path).to.equal('/test/:with_param');
             expect(result.time).to.be.a('Number');
             expect(result.time).to.be.above(4);
@@ -61,6 +63,7 @@ describe("timing-middleware", function() {
           .expect(500)
           .end(function(err, res) {
             expect(err).to.not.exist;
+            expect(result.verb).to.equal('GET');
             expect(result.path).to.equal('/bad_route');
             expect(result.time).to.be.a('Number');
             done();
