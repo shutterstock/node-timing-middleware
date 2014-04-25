@@ -1,0 +1,31 @@
+{
+  "name": "timing-middleware",
+  "version": "0.0.0",
+  "description": "Time how long a route takes to respond",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/shutterstock/node-timing-middleware.git"
+  },
+  "keywords": [
+    "performance",
+    "monitoring",
+    "timing",
+    "middleware"
+  ],
+  "author": "Elliot Foster & Yan Lhert, Shutterstock",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shutterstock/node-timing-middleware/issues"
+  },
+  "homepage": "https://github.com/shutterstock/node-timing-middleware",
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "mocha": "^1.18.2",
+    "express": "^4.1.0",
+    "supertest": "^0.11.0"
+  }
+}
