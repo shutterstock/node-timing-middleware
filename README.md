@@ -13,8 +13,8 @@ var express = require('express');
 
 var app = express();
 
-app.use(timing(function(verb, path, duration) {
-  console.log(verb, path, "took", duration, "ms");
+app.use(timing(function(verb, path, duration, req, res) {
+  console.log(verb, path, "took", duration, "ms and returned ", res.statusCode);
 }));
 
 app.get('/fairly_slow_route', function(req, res, next) {
