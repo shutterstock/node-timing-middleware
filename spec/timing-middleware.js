@@ -35,7 +35,11 @@ describe("timing-middleware", function() {
       });
 
       app.get('/bad_route', function(req, res, next) {
-        throw new Error('Dont you hate it when this happens?');
+        throw new Error('Example failing request');
+      });
+
+      app.use(function(err, req, res, next) {
+        res.send(err, 500);
       });
     });
 
