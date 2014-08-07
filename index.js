@@ -13,7 +13,7 @@ module.exports = function(logger) {
       var key = (req.route || {}).path;
       var duration = Date.now() - start;
 
-      logger(req.method, key, duration);
+      logger(req.method, key, duration, req, res);
 
       origWriteHead.apply(res, arguments);
     };

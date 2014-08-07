@@ -6,6 +6,8 @@ var subject = require('../');
 var express = require('express');
 var request = require('supertest');
 
+chai.config.includeStack = true;
+
 describe("timing-middleware", function() {
   it("exports a function", function(done) {
     expect(subject).to.be.a('function');
@@ -20,12 +22,15 @@ describe("timing-middleware", function() {
       result = {
         fake: 'timing recorder'
       };
+
       app = express();
 
-      app.use(subject(function(verb, path, time) {
+      app.use(subject(function(verb, path, time, req, res) {
         result.verb = verb;
         result.path = path;
         result.time = time;
+        result.req  = req;
+        result.res  = res;
       }));
 
       app.get('/test/:with_param', function(req, res, next) {
@@ -55,6 +60,24 @@ describe("timing-middleware", function() {
             expect(result.path).to.equal('/test/:with_param');
             expect(result.time).to.be.a('Number');
             expect(result.time).to.be.above(4);
+
+            done();
+          });
+      });
+
+      it("returns the related req/res", function(done) {
+        request(app)
+          .get('/test/1')
+          .expect(200)
+          .end(function(err, res) {
+            expect(err).to.not.exist;
+
+            expect(result.req).to.exist;
+            expect(result.req.method).to.equal('GET');
+
+            expect(result.res).to.exist;
+            expect(result.res.send).to.be.a('function');
+
             done();
           });
       });
@@ -70,6 +93,24 @@ describe("timing-middleware", function() {
             expect(result.verb).to.equal('GET');
             expect(result.path).to.equal('/bad_route');
             expect(result.time).to.be.a('Number');
+
+            done();
+          });
+      });
+
+      it("returns the related req/res", function(done) {
+        request(app)
+          .get('/bad_route')
+          .expect(500)
+          .end(function(err, res) {
+            expect(err).to.not.exist;
+
+            expect(result.req).to.exist;
+            expect(result.req.method).to.equal('GET');
+
+            expect(result.res).to.exist;
+            expect(result.res.send).to.be.a('function');
+
             done();
           });
       });
