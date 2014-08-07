@@ -31,7 +31,7 @@ describe("timing-middleware", function() {
       app.get('/test/:with_param', function(req, res, next) {
         setTimeout(function() {
           res.send('doesntmatter');
-        }, 5);
+        }, 10);
       });
 
       app.get('/bad_route', function(req, res, next) {
@@ -39,7 +39,7 @@ describe("timing-middleware", function() {
       });
     });
 
-    context("healthy routes", function() {
+    context("when the route does not error", function() {
       it("tracks the amount of time that a request takes", function(done) {
         request(app)
           .get('/test/1')
