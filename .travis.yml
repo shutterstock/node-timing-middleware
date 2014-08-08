@@ -1,6 +1,6 @@
 language: node_js
-before_script:
-  - sh -c "npm install express@${express_version}"
+before_install:
+  - sh -c "npm install --save-dev express@${express_version}"
 node_js:
   - 0.11
   - 0.10
