@@ -11,6 +11,6 @@ env:
   - express_version=2
 exclude:
   - node_js: 0.8
-    express_version=3
+    env: express_version=3
   - node_js: 0.8
-    express_version=4
+    env: express_version=4
