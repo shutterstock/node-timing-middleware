@@ -4,6 +4,13 @@ Expose request times to do with as you desire: statsd, log, etc.
 
 [![Build Status](https://secure.travis-ci.org/shutterstock/node-timing-middleware.png)](http://travis-ci.org/shutterstock/node-timing-middleware)
 
+## Caveats
+
+Works with any express 2+, but express versions 4+ will not return a correct path if:
+
+  * routes are nested
+  * middleware responds to a request rather than a route handler
+
 ## Example usage
 
 ```javascript
