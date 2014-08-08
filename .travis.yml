@@ -9,8 +9,9 @@ env:
   - express_version=4
   - express_version=3
   - express_version=2
-exclude:
-  - node_js: 0.8
-    env: express_version=3
-  - node_js: 0.8
-    env: express_version=4
+matrix:
+  exclude:
+    - node_js: 0.8
+      env: express_version=3
+    - node_js: 0.8
+      env: express_version=4
