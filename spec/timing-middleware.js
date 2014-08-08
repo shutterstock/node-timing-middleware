@@ -142,7 +142,13 @@ describe("timing-middleware", function() {
             expect(res.text).to.equal('auth failure');
 
             expect(result.verb).to.equal('GET');
-            expect(result.path).to.equal('/test/:with_param');
+
+            if ('4' === process.env.express_version) {
+              expect(result.path).to.equal('unknown');
+            } else {
+              expect(result.path).to.equal('/test/:with_param');
+            }
+
             expect(result.time).to.be.a('Number');
 
             done();
