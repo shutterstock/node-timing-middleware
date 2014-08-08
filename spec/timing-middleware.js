@@ -23,7 +23,13 @@ describe("timing-middleware", function() {
         fake: 'timing recorder'
       };
 
-      app = express();
+      if ('function' == typeof express) {
+        // express 3+
+        app = express();
+      } else {
+        // express 2
+        app = express.createServer();
+      }
 
       app.use(subject(function(verb, path, time, req, res) {
         result.verb = verb;
@@ -32,6 +38,15 @@ describe("timing-middleware", function() {
         result.req  = req;
         result.res  = res;
       }));
+
+      app.use(function(req, res, next) {
+        if (req.path.match(/auth_failure$/)) {
+          res.statusCode = 400;
+          return res.send('auth failure');
+        }
+
+        next();
+      });
 
       app.get('/test/:with_param', function(req, res, next) {
         setTimeout(function() {
@@ -44,7 +59,8 @@ describe("timing-middleware", function() {
       });
 
       app.use(function(err, req, res, next) {
-        res.send(err, 500);
+        res.statusCode = 500;
+        res.send(err);
       });
     });
 
@@ -113,6 +129,25 @@ describe("timing-middleware", function() {
 
             done();
           });
+      });
+    });
+
+    context("when middleware responds before a route handler", function() {
+      it("populates the path with a matching route handler", function(done) {
+        request(app)
+          .get('/test/auth_failure')
+          .expect(400)
+          .end(function(err, res) {
+            expect(err).to.not.exist;
+            expect(res.text).to.equal('auth failure');
+
+            expect(result.verb).to.equal('GET');
+            expect(result.path).to.equal('/test/:with_param');
+            expect(result.time).to.be.a('Number');
+
+            done();
+          });
+
       });
     });
   });
