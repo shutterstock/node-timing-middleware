@@ -2,16 +2,16 @@ language: node_js
 before_install:
   - sh -c "npm install --save-dev express@${express_version}"
 node_js:
-  - 0.11
-  - 0.10
-  - 0.8
+  - "0.11"
+  - "0.10"
+  - "0.8"
 env:
   - express_version=4
   - express_version=3
   - express_version=2
 matrix:
   exclude:
-    - node_js: 0.8
+    - node_js: "0.8"
       env: express_version=3
-    - node_js: 0.8
+    - node_js: "0.8"
       env: express_version=4
