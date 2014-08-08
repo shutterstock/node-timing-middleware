@@ -1,5 +1,16 @@
 language: node_js
+before_script:
+  - sh -c "npm install express@${express_version}"
 node_js:
-  - "0.11"
-  - "0.10"
-  - "0.8"
+  - 0.11
+  - 0.10
+  - 0.8
+env:
+  - express_version=4
+  - express_version=3
+  - express_version=2
+exclude:
+  - node_js: 0.8
+    express_version=3
+  - node_js: 0.8
+    express_version=4
