@@ -16,7 +16,7 @@
     "timing",
     "middleware"
   ],
-  "author": "Elliot Foster & Yan Lhert, Shutterstock",
+  "author": "Elliot Foster & Bernhard Kovacevich, Shutterstock",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/shutterstock/node-timing-middleware/issues"
