@@ -5,12 +5,18 @@ function getPathForRequest(req) {
 
   if (!path) {
     if (req.app && req.app.routes) {
-      if (req.app.routes[method]) {
+      if (!req.app.routes) {
+        routes = [];
+      } else if (req.app.routes[method]) {
         // express 3
         routes = req.app.routes[method] || [];
       } else {
         // express 2
-        routes = req.app.routes.routes[method] || [];
+        if (!req.app.routes.routes) {
+          routes = [];
+        } else {
+          routes = req.app.routes.routes[method] || [];
+        }
       }
 
       for (var i = 0, l = routes.length; i < l; ++i) {

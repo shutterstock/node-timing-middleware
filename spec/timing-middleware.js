@@ -64,6 +64,27 @@ describe("timing-middleware", function() {
       });
     });
 
+    context('When used with options', function() {
+      it('does not cause an error and tracks the amount of time it takes', function(done) {
+        request(app)
+          .options('/test/1')
+          .expect(200)
+          .end(function(err, res) {
+            expect(err).to.not.exist;
+
+            expect(res.body).to.deep.equal({});
+            expect(res.headers.allow).to.equal('GET,HEAD');
+
+            expect(result.verb).to.equal('OPTIONS');
+            expect(result.path).to.equal('unknown');
+            expect(result.time).to.be.a('Number');
+            expect(result.time).to.be.above(-1);
+
+            done();
+          });
+      });
+    });
+
     context("when the route does not error", function() {
       it("tracks the amount of time that a request takes", function(done) {
         request(app)
