@@ -65,10 +65,7 @@ describe("timing-middleware", function() {
     });
 
     context('When used with options', function() {
-      // the main point of this test is to avoid throwing null pointer errors
-      // when a route is called with options
-
-      it('does not cause and error and tracks the amount of time it takes', function(done) {
+      it('does not cause an error and tracks the amount of time it takes', function(done) {
         request(app)
           .options('/test/1')
           .expect(200)
