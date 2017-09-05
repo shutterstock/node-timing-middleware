@@ -30,3 +30,7 @@ app.get('/fairly_slow_route', function(req, res, next) {
   }, 10);
 });
 ```
+
+## License
+
+[MIT](LICENSE) © 2014-2017 Shutterstock Images, LLC
